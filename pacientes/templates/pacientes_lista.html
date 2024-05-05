@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="col-md-20 col-md-offset-0">
+    <form id="form_wrapper" enctype="multipart/form-data">
+        <legend>Pacientes Registrados</legend>
+        {% crispy form %}
+    </form>
+    <table>
+        </tr>
+    </table>
+    <th>
+        <hr id='hrline'>
+    </th>
+</div>
+<table class="table table-hover table-bordered table-striped" style="width:100%" border="0">
+    <thead>
+    <tr>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Fecha De Registro</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Hora Elaboracion</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Nombre Del Paciente</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Fecha De Nacimiento</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Edad</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Hospital</label></th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke">Estudios</th>
+        <th style="background-color: indianred; font-weight: bolder; color: whitesmoke"><label>Perfil</label></th>
+    </tr>
+    </thead>
+ {% for post in object_list %}
+    {%  if post.estudio_adicional %}
+    <tr class="bg-danger">
+    {% else %}
+        <tr>
+   {% endif %}
+    <td style="text-align: center; color:black">
+        {{post.fecha_creacion|date:" d F Y"}}
+    </td>
+    <td  style="text-align: center; color:black">
+        {{post.hora_elaboracion_estudio | default_if_none:''}}
+    </td>
+    <td style="text-align: center; color:black">
+        {{ post.nombre }} {{post.apellido_paterno}} {{post.apellido_materno}}
+    </td>
+    <td style="text-align: center;color:black">
+        {{ post.fecha_nacimiento|date:" d F Y" }}
+    </td>
+    <td style="text-align: center;color:black">
+        {{ post.edad }}
+    </td>
+    <td style="text-align: center;color:black">
+        {{post.get_hospital_display}}
+    </td>
+    <td style="text-align: center;color:black">
+    {% if post.estudio_1%}
+        {{post.estudio_1| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_2%}
+        {{post.estudio_2| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_3%}
+        {{post.estudio_3| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_4%}
+        {{post.estudio_4| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_5%}
+        {{post.estudio_5| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_6%}
+        {{post.estudio_6| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_7%}
+        {{post.estudio_7| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_8%}
+        {{post.estudio_8| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_9%}
+        {{post.estudio_9| default_if_none:""}}
+        <br>
+    {%endif%}
+    {% if post.estudio_10%}
+        {{post.estudio_10| default_if_none:""}}
+    {%endif%}
+    </td>
+    <td style="text-align: center;color:black">
+        <a href="{% url 'perfilpaciente' id=post.pk %}">ver</a>
+    </td>
+  </tr>
+    {% endfor %}
+</table>
+<center>
+    {% if is_paginated %}
+    <div class="pagination">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?nombre={{nombre}}&hospital={{hospital}}&adicional={{adicional}}&page={{page_obj.previous_page_number}}">&laquo;</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="#">&nbsp;Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.next_page_number <= page_obj.paginator.num_pages %}
+            <li>
+                <a href="?nombre={{nombre}}&hospital={{hospital}}&adicional={{adicional}}&page={{page_obj.next_page_number}}">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+</center>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("#div_id_urgencias_laboratorio_medico").show();
+       $("#div_id_urgencias_laboratorio_id_paciente").hide();
+       $("#tablenutri").hide();
+    });
+
+
+        $('#buscar').click(function()
+            {
+               $("#div_id_fecha_ingreso").show();
+               $("#div_id_fecha_ingreso_final").show();
+               $("#div_id_fecha_nacimiento").show();
+               $("#div_id_medico").show();
+               $("#div_id_nombre").show();
+               $("#div_id_servicio").show();
+               $("#div_id_seguro").show();
+               $("#div_id_folio").show();
+               $("#submit-id-filtrar").show();
+               $("#limpiar").show();
+               $("#buscar").hide()
+            });
+
+</script>
+{% endblock extra_js %}

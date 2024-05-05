@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="col-md-20 col-md-offset-0">
+    <form id="form_wrapper" enctype="multipart/form-data">
+        <legend>Pacientes Registrados</legend>
+    </form>
+    <table>
+    </tr>
+    </table>
+    <th>
+        <hr id='hrline'>
+    </th>
+  </div>
+    <table class="table table-striped table-hover table-bordered" style="width:100%" border="0">
+        <thead>
+            <tr>
+                <th bgcolor="#939393"><label>Nombre Del Paciente</label></th>
+            </tr>
+        </thead>
+        {% for post in object_list %}
+
+                    <td style="text-align: center; color:black">
+                         {{ post.nombre_estudio }}
+                    </td>
+                    <td style="color:black">
+                        {{ post.interpretacion_default|safe }}
+                    </td>
+                    <td></td>
+
+              </tr>
+            {% endfor %}
+    </table>
+    <center>
+    {% if is_paginated %}
+        <div class="pagination">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?nombre={{nombre}}&hospital={{hospital}}}&adicional={{adicional}}&page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="#">&nbsp;Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+                </li>
+                {% if page_obj.next_page_number <= page_obj.paginator.num_pages %}
+                <li>
+                    <a href="?nombre={{nombre}}&hospital={{hospital}}&adicional={{adicional}}&page={{page_obj.next_page_number}}">&raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+            {% endif %}
+    </center>
+</div>
+{% endblock %}

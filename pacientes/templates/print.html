@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <link rel="stylesheet" href="{{STATIC_URL}}diseno.css">
+        <title></title>
+        <style>
+        @media print {
+            @page
+            {
+              margin: 35mm 10mm 18mm 10mm;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        {% for interpretacion in object_list %}
+                <table style="width:100%; font-size:12" >
+                <thead>
+                  <tr>
+                    <td>
+                      <label>Nombre:</label>
+                    </td>
+                    <td colspan="4">
+                      {{interpretacion.id_paciente.nombre}} {{interpretacion.id_paciente.apellido_paterno}} {{interpretacion.id_paciente.apellido_materno}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <label>Fecha Nacimiento:</label>
+                    </td>
+                    <td colspan="4">
+                      {{interpretacion.id_paciente.fecha_nacimiento}}
+                    </td>
+                </tr>
+                {% if interpretacion.id_paciente.numero_seguro != None %}
+                <tr>
+                    <td>
+                      <label>NSS:</label>
+                    </td>
+                    <td>
+                      {{interpretacion.id_paciente.numero_seguro}}
+                    </td>
+                </tr>
+                {%else%}
+
+                {% endif%}
+            </tr>
+            <tr>
+                <tr>
+                    <td>
+                      <label>Médico referencia:</label>
+                    </td>
+                    <td colspan="4">
+                      {{interpretacion.id_paciente.medico_referencia}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <label>Fecha Elaboración Estudio:</label>
+                    </td>
+                    <td>
+                      {{interpretacion.id_paciente.fecha_elaboracion_estudio}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <label>Hospital:</label>
+                    </td>
+                    <td colspan="4">
+                      {{interpretacion.id_paciente.get_hospital_display}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <label>Estudio:</label>
+                    </td>
+                    <td colspan="4">
+                      {{interpretacion.nombre_estudio}}
+                    </td>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" class="interpretacion">
+                        {{interpretacion.interpretacion_creada|safe}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Fecha Interpretación: {{interpretacion.crated_at_date}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {%endfor%}
+    </body>
+<p>
+</html>

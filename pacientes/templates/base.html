@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Radiologia Dr. Aguilar{% endblock %}</title>
+    <link href="{{STATIC_URL}}select2-4.0.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/84d2354290.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}diseno.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+
+ <!--FONTAWSOME-->
+    <script src="https://kit.fontawesome.com/84d2354290.js"></script>
+
+</head>
+<body>
+<div class="row">
+    <div>
+        {% block menu %}
+        {% include "menu.html" %}
+        {% endblock %}
+    </div>
+    <div class="col-xs-12">
+        <div class="container-fluid" style="filter:alpha(opacity=10); opacity:0.9">
+            <div style=" margin-left:40px; margin-right:40px" class="row contenido">
+                <div class="row contenido">
+                    <br>
+                    {% block contenido %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block jquery %}
+    <script src="{{STATIC_URL}}libs/jquery/jquery.min.js"></script>
+    {% endblock %}
+    <script src="{{STATIC_URL}}js/moment.min.js"></script>
+    <script src="{{STATIC_URL}}select2-4.0.1/dist/js/select2.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap3/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+                $(function () {
+                    $(".dateinput, #fecha_plan,#fecha_sonda").datetimepicker({pickTime: false, format: "YYYY-MM-DD"});
+                    $( ".timeinput,#hora_sonda" ).datetimepicker({pickDate: false, format:"HH:mm"});
+                });
+                $("#id_edad").click(function(){
+                    dob= $("#id_fecha_nacimiento").val();
+                    dob = new Date(dob);
+                    var today = new Date();
+                    var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+                    $('#id_edad').val(age);
+                });
+
+    </script>
+    {% block extra_js %}
+    {% endblock %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block titulo %}Registro Paciente{% endblock %}
+{% block contenido %}
+    <style>
+        legend{
+            background: darkgray;
+            text-align: center;
+            border: #0e4776;
+        }
+    </style>
+    <form  id="id_call" method="POST"  enctype="multipart/form-data">
+         <div id="firstcontact">
+               {% crispy form %}
+         </div>
+
+    <div class="buttonHolder">
+        <input type="submit" name="registrar" value="Guardar" class="btn btn-primary" id="guardar_form" style="margin-left:900px">
+    </div>
+        </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+  $(document).ready(function(){
+      $('#div_id_id_paciente').hide();
+      $('#div_id_estudio_2').hide();
+      $('#div_id_estudio_3').hide();
+      $('#div_id_estudio_4').hide();
+      $('#div_id_estudio_5').hide();
+      $('#div_id_estudio_6').hide();
+      $('#div_id_estudio_7').hide();
+      $('#div_id_estudio_8').hide();
+      $('#div_id_estudio_9').hide();
+      $('#div_id_estudio_10').hide();
+      $("#nuevo2").hide();
+      $("#nuevo3").hide();
+      $("#nuevo4").hide();
+      $("#nuevo5").hide();
+      $("#nuevo6").hide();
+      $("#nuevo7").hide();
+      $("#nuevo8").hide();
+      $("#nuevo9").hide();
+        });
+
+      $('#nuevo1').click(function()
+        {
+          $("#div_id_estudio_2").show();
+          $("#nuevo1").hide();
+          $("#nuevo2").show();
+       });
+
+       $('#nuevo2').click(function()
+         {
+           $("#div_id_estudio_3").show();
+           $("#nuevo2").hide();
+           $("#nuevo3").show();
+        });
+
+        $('#nuevo3').click(function()
+          {
+            $("#div_id_estudio_4").show();
+            $("#nuevo3").hide();
+            $("#nuevo4").show();
+         });
+         $('#nuevo4').click(function()
+           {
+             $("#div_id_estudio_5").show();
+             $("#nuevo4").hide();
+             $("#nuevo5").show();
+          });
+          $('#nuevo5').click(function()
+            {
+              $("#div_id_estudio_6").show();
+              $("#nuevo5").hide();
+              $("#nuevo6").show();
+           });
+           $('#nuevo6').click(function()
+             {
+               $("#div_id_estudio_7").show();
+               $("#nuevo6").hide();
+               $("#nuevo7").show();
+            });
+            $('#nuevo7').click(function()
+              {
+                $("#div_id_estudio_8").show();
+                $("#nuevo7").hide();
+                $("#nuevo8").show();
+             });
+             $('#nuevo8').click(function()
+               {
+                 $("#div_id_estudio_9").show();
+                 $("#nuevo8").hide();
+                 $("#nuevo9").show();
+              });
+              $('#nuevo9').click(function()
+                {
+                  $("#div_id_estudio_10").show();
+
+              });
+
+              $(document).ready(function() {
+                  $('#id_estudio_1').select2();
+                  $('#id_estudio_2').select2();
+                  $('#id_estudio_3').select2();
+                  $('#id_estudio_4').select2();
+                  $('#id_estudio_5').select2();
+                  $('#id_estudio_6').select2();
+                  $('#id_estudio_7').select2();
+                  $('#id_estudio_8').select2();
+                  $('#id_estudio_9').select2();
+                  $('#id_estudio_10').select2();
+              });
+
+
+    $('#guardar_form').click(function() {
+        $('form').submit();
+    });
+</script>
+{% endblock extra_js %}

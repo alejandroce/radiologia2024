@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block titulo %}Intepretacion{% endblock %}
+
+{% block contenido %}
+<br>
+<div class="col-md-200 ">
+
+    <form  class="well" id="id_call" method="POST"  enctype="multipart/form-data">
+         <div id="firstcontact">
+               {% crispy form %}
+         </div>
+    </form>
+    <div class="buttonHolder">
+        <input type="submit" name="registrar" value="Guardar" class="btn btn-primary" id="guardar_form" style="margin-left:530px">
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+
+    $('#guardar_form').click(function() {
+        $('form').submit();
+    });
+</script>
+{% endblock extra_js %}

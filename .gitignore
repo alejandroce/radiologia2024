@@ -1,0 +1,14 @@
+*.cvs
+*.DS_Store
+*.json
+*.pyc
+*.sqlite
+*.tar.gz
+.idea/
+build/
+media/
+tmp/
+node_modules/
+log/
+
+

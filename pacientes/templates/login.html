@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}diseno.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}site/css/app.css">
+    <script src="{{STATIC_URL}}libs/jquery/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/moment.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap3/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body style="background-image: url({{STATIC_URL}}img/ExcelNuevo.jpg);background-repeat: no-repeat; background-size: 1800px 900px;" >
+    <div>
+        <form style="width:300px;  margin-top:200px; margin-left:500px" class="form-signin" role="form" action="." method="POST">
+            {% csrf_token %}
+            	<p style="margin-left:50px">
+            	   <font size="4"> Dr. David Aguilar Obeso.</font>
+            	</p>
+            	<hr id='hrline'>
+            	<br>
+                <input class="form-control" id="id_username" type="text" name="username" maxlength="30" placeholder="usuario" required/>
+                <br>
+                <input class="form-control" id="id_password" type="password" name="password" maxlength="30" placeholder="Contraseña" required/>
+                <br>
+              <input type="button" class="btn btn-success btn-lg btn-block" type="submit" value="Iniciar Sesión" id="guardar_form" />
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                            <b> <font color="black" size="1">{{ message }}</font></b>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </form>
+
+    </div>
+    <script>
+        $('#guardar_form').click(function(){
+            $('form').submit();
+        });
+    </script>
+</body>

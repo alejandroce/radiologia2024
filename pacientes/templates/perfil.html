@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+    <div class="col-md-200 ">
+        <table width="100%">
+            <td colspan="7">
+                <img src="{{ STATIC_URL }}img/user.png" width='35px' height='35px'>
+                &nbsp<b>
+                <font size="4">
+                    Paciente
+                </font></b>
+            </td>
+            <td>
+            <td style="text-align: right; color:black">
+                <a href="{% url 'editarpacientes' id=object_list.0.pk %}">
+                    <img src="{{ STATIC_URL }}img/editar.png" style="width:35px; height:35px"/>
+                    Editar</a>
+                <a href="{% url 'deletepatient' id=object_list.0.pk %}">
+                    <img src="{{ STATIC_URL }}img/eliminar.png" style="width:20px; height:20px"/> Eliminar Paciente.</a>
+
+            </td>
+        </table>
+        <hr style="border-color: #006699">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <label>Nombre:</label>
+                    {{ object_list.0.nombre }}&nbsp{{ object_list.0.apellido_paterno }}&nbsp{{ object_list.0.apellido_materno }}
+                </td>
+                <td>
+                    <label>Sexo:</label>
+                    {{ object_list.0.sexo }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Edad:</label>
+                    {{ object_list.0.edad }} años
+                </td>
+                <td>
+                    <label>Fecha De Nacimiento:</label>
+                    {{ object_list.0.fecha_nacimiento }}
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                    <label>Correo Electrónico:</label>
+                    {{ object_list.0.email }}
+                </td>
+                <td>
+                    <label>Hospital:</label>
+                    {{ object_list.0.hospital  }}
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-6">
+                <img src="{{ STATIC_URL }}img/imagenologia.png" width='45px' height='45px'>
+                &nbsp<b>
+                <font size="4">
+                    Estudios
+                </font></b>
+                <hr style="border-color: #006699">
+                {% for paciente in object_list %}
+                   <table class="table table-bordered">
+                        {% if paciente.estudio_1 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_1 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_1.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_2 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_2 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_2.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_3 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_3 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_3.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_4 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_4 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_4.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'detalleinterpretacion' id=paciente.pk %}">Ver Detalle</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_5 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_5 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_5.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}{% if paciente.estudio_6 %}
+                        <tr>
+                            <td>
+                                {{ paciente.estudio_6 }}
+                            </td>
+                            <td style="text-align:left">
+                                <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_6.pk %}">Crear
+                                    Interpretación</a>
+                            </td>
+                        </tr>
+                    {% endif %}{% if paciente.estudio_7 %}
+                        <tr>
+                            <td>
+                                {{ paciente.estudio_7 }}
+                            </td>
+                            <td style="text-align:left">
+                                <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_7.pk %}">Crear
+                                    Interpretación</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                        {% if paciente.estudio_8 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_8 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_8.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_9 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_9 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_9.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if paciente.estudio_10 %}
+                            <tr>
+                                <td>
+                                    {{ paciente.estudio_10 }}
+                                </td>
+                                <td style="text-align:left">
+                                    <a href="{% url 'crearinterpretacion' id=paciente.pk est=paciente.estudio_10.pk %}">Crear
+                                        Interpretación</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                {% endfor %}
+            </div>
+            <div class="col-xs-6">
+                <img src="{{ STATIC_URL }}img/interpretacion.jpg" width='45px' height='45px'>
+                &nbsp<b>
+                <font size="4">
+                    Intepretaciones
+                </font></b>
+                <hr style="border-color: #006699">
+                <table class="table table-bordered" style="text-align: center">
+                    {% for inter in paciente_interpretaciones %}
+                        <tr>
+                            <td>
+                                {{ inter.crated_at_date }}
+                            </td>
+                            <td>
+                                {{ inter.nombre_estudio }}
+                            </td>
+                            <td>
+                                <a href="{% url 'editarinterpretacion' id=inter.pk %}"><i class="far fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'detalleinterpretacion' id=inter.pk %}" target="_blank"><i class="fas fa-info"></i></a>
+                            </td>
+                            <td>
+                                <a target="_blank" href="{% url 'imprimirinterpretacion' id=inter.pk %}"><i class="fas fa-print"></i></a>
+                            </td>
+                            <td>
+                            <form action="{% url 'send-interpretacion' inter.pk %}" method="post">
+                                      {% csrf_token %}
+                                <button type="submit" class="btn btn-default" style="padding: 0; border: none; background: none;">
+                                    <i class="far fa-paper-plane" style="color: #004D91"></i>
+                                </button>
+                            </form>
+                            </td>
+                            <td>
+                                <a href="{% url 'eliminarintepretacion' id=inter.pk %}"><i class="fas fa-trash-alt"></i></a>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    <div class="row">
+            <div class="col-xs-6">
+                <img src="{{ STATIC_URL }}img/imagenologia.png" width='45px' height='45px'>
+                &nbsp<b>
+                <font size="4">
+                    Archivos Interpretaciones
+                </font></b>
+                <hr style="border-color: #006699">
+                 <table class="table table-bordered">
+                         {% for inter in paciente_interpretaciones %}
+                             {% for archivo in inter.archivopdfinterpretacion_set.all %}
+                                    <tr>
+                                        <td>
+                                            <td colspan="4"><a style="text-align: center" target="_blank" href="/media/{{ archivo.nombre_archivo }}"><strong>{{ archivo.nombre_archivo }}</strong></a></td>
+{#                                            <img src="media/{{ archivo.nombre_archivo }}">{{ archivo.nombre_archivo }}</img>#}
+                                        </td>
+                                    </tr>
+                            {% endfor %}
+                        {% endfor %}
+                </table>
+                <form action="{% url 'send-interpretacion-all' object_list.0.pk %}" method="post">
+                    {% csrf_token %}
+                        <button type="submit" value="all" class="btn btn-default" style="padding: 0; border: none; background: none; float: right">
+                            <i class="far fa-paper-plane" style="color: red">&nbsp;Todos</i>
+                        </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,164 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interpretación</title>
+    <style>
+        p.saltodepagina
+            {
+                page-break-after: always;
+            }
+        body{
+            font-size: 10px;
+        }
+        h3{
+            page-break-inside:avoid;
+            page-break-before:auto;
+            position:relative;
+            display:block;
+        }
+        .trtitle{
+            background-color: lightgrey;
+            text-align: center;
+            font-weight: bolder
+        }
+    </style>
+</head>
+<body style="font-size: 10px; background-color: white; margin-left: 1.0cm">
+{% for interpretacion in object_list %}
+        {% if interpretacion.id_paciente.hospital == "IMSS" %}
+           <table class="container" id="exameneslaboratorio">
+            <td align="right"><img src="/var/www/project/radiologia2020/static/img/new-imss.png" height="100px"></td>
+{#            <td align="right"><img src="\var\www\project\radiologia2020\static\img\new-imss.png" height="140px"></td>#}
+               <td colspan="4" align="center" style="font-size: 12px">
+                <span><b>INSTITUTO MEXICANO DEL SEGURO SOCIAL</b></span><br>
+                <span>Hospital General Regional No.1 Tijuana B.C</span>
+                <h4>DEPARTAMENTO DE RADIOLOGIA E IMAGEN</h4>
+            </td>
+        {% endif %}
+        {% if interpretacion.id_paciente.hospital == "ECO" %}
+        <table style="float: right">
+            <td align="right"><img src="/var/www/project/radiologia2020/static/img/ecodiagnostica.png" height="100px"></td>
+{#            <td align="right"><img src="C:/Users/alex/dev/radiologia2020/static/img/ecodiagnostica.png" height="120px"></td>#}
+                <br>
+        </table>
+        {% endif %}
+
+
+    {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO"%}
+        &nbsp;
+        <div style="margin-left:30px; margin-top:90px">
+    {% else %}
+        <div style="margin-left:30px;">
+    {% endif %}
+</div>
+    <div>
+    <table style="width:100%; font-size:10px">
+        <tr>
+            <td>
+                <strong>Nombre:</strong>
+            </td>
+            <td>
+                {{ interpretacion.id_paciente.nombre }} {{ interpretacion.id_paciente.apellido_paterno }} {{ interpretacion.id_paciente.apellido_materno }}
+            </td>
+            {% if interpretacion.id_paciente.numero_seguro != None %}
+                <td>
+                    <strong>No. Afiliación:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.numero_seguro }}
+                </td>
+                </tr>
+            {% else %}
+                </table>
+                {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO" or interpretacion.id_paciente.hospital == "ECO" %}
+                    <div style="margin-left:30px; margin-top:90px">
+                {% else %}
+                    <hr>
+
+                    <div style="margin-left:30px;">
+
+                {% endif %}
+                <table class="container" id="exameneslaboratorio" width="100%" border="0">
+                <div style="margin-left:80px; margin-top:120px; width:80%">
+                <table class="table">
+                <tr>
+                    <td>
+                        <strong>Nombre:</strong>
+                    </td>
+                    <td>
+                        {{ interpretacion.id_paciente.nombre }} {{ interpretacion.id_paciente.apellido_paterno }} {{ interpretacion.id_paciente.apellido_materno }}
+                    </td>
+                    <td><strong for="nacimiento">Fecha De Nacimiento:</strong></td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>
+                    <strong>Fecha Elaboración Estudio:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.fecha_elaboracion_estudio }}
+                </td>
+
+                <td>
+                    <strong>Médico referencia:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.medico_referencia }}
+                </td>
+            </tr>
+
+            </table>
+            </div>
+    <br>
+    <table style="font-size: 10px">
+        <tr>
+            <td>
+                <label>Estudio:</label>
+                <b>{{ interpretacion.nombre_estudio }}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>Fecha de nacimiento: <b>{{ interpretacion.id_paciente.fecha_nacimiento }}</b> </td>
+        </tr>
+    </table>
+    <br>
+    <div>
+        <table style="font-size: 10px">
+            <tr>
+                <td style="font-size: 10px">
+                   {{ interpretacion.interpretacion_creada|safe }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fecha Interpretación: {{ interpretacion.crated_at_date }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Atentamente:</b>
+                    <br>
+                    <br>
+                    Dr(a). {{ medico.nombre }}
+                    <br>
+                    {{ medico.especialidad }}
+                        <br>DGP {{ medico.cedula }}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+{% endfor %}
+</table>
+</div>
+</div>

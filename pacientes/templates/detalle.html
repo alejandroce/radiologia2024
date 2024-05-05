@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="col-md-20 col-md-offset-0">
+    <table>
+    </tr>
+    </table>
+  </div>
+    <table class="table table-striped table-hover table-bordered" style="width:100%" border="0">
+        {% for post in object_list %}
+                <tr>
+                  <td style="text-align: center; color:black">
+                  <label>Nombre Del Paciente:</label>
+                       {{ post.id_paciente.nombre }} {{post.id_paciente.apellido_paterno}} {{post.id_paciente.apellido_materno}}
+                  </td>
+                    <td style="text-align: center;color:black">
+                      <label>Fecha De Nacimiento:</label>
+                        {{ post.id_paciente.fecha_nacimiento|date:" d F Y"  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;color:black">
+                      <label>Edad:</label>
+                        {{ post.id_paciente.edad }}
+                    </td>
+
+                    <td style="text-align: center;color:black">
+                      <label>Sexo:</label>
+                        {{ post.id_paciente.sexo }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;color:black">
+                      <label>Hospital:</label>
+                        {{ post.id_paciente.hospital }}
+                    </td>
+                    <td style="text-align: center;color:black">
+                      <label>NSS:</label>
+                        {{ post.id_paciente.numero_seguro }}
+                    </td>
+
+                  </tr>
+
+                </table>
+                <table class="table table-striped table-hover table-bordered" style="width:100%" border="0">
+                <tr>
+                    <td style="color:black">
+                        {{ post.interpretacion_creada|safe }}
+                    </td>
+                </tr>
+                {% for m in post.archivopdfinterpretacion_set.all %}
+                    <tr>
+                        <td colspan="3"><a style="text-align: center"
+                            href="{{ MEDIA_URL }}interpretaciones/{{ m.nombre_archivo }}"><strong> Ver Interpretación PDF</strong></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+    </table>
+    <center>
+    {% if is_paginated %}
+        <div class="pagination">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?nombre={{nombre}}&hospital={{hospital}}}&page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="#">&nbsp;Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+                </li>
+                {% if page_obj.next_page_number <= page_obj.paginator.num_pages %}
+                <li>
+                    <a href="?nombre={{nombre}}&hospital={{hospital}}&page={{page_obj.next_page_number}}">&raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+            {% endif %}
+    </center>
+</div>
+{% endblock %}

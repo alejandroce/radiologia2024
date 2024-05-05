@@ -1,0 +1,201 @@
+{% load pictures_tags %}
+{% load static from staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interpretación</title>
+    <style>
+        p.interpretaciones
+        {
+            page-break-after: always;
+        }
+    </style>
+
+</head>
+<body bgcolor="white" style="font-size: 15px">
+<div class="page">
+<table class="container" width="100%">
+    {% if interpretacion.id_paciente.hospital == "IMSS" %}
+        <td align="right"><img src="/var/www/project/radiologia2020/static/img/new-imss.png" height="140px"></td>
+        <td colspan="4" align="center">
+            <span><b>INSTITUTO MEXICANO DEL SEGURO SOCIAL</b></span><br>
+            <span>Hospital General Regional No.1 Tijuana B.C</span>
+            <h4>DEPARTAMENTO DE RADIOLOGIA E IMAGEN</h4>
+        </td>
+    {% endif %}
+    </table>
+    <br><br><br>
+    {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO" or interpretacion.id_paciente.hospital == "ECO" %}
+        <div style="margin-left:30px; margin-top:90px">
+    {% else %}
+        <br><br><br>
+        <div style="margin-left:30px;">
+    {% endif %}
+    </div>
+</div>
+<div>
+    <br>
+    <table style="width:100%; font-size:15px">
+        <tr>
+            <td>
+                <strong>Nombre:</strong>
+            </td>
+            <td>
+                {{ interpretacion.id_paciente.nombre }} {{ interpretacion.id_paciente.apellido_paterno }} {{ interpretacion.id_paciente.apellido_materno }}
+            </td>
+            {% if interpretacion.id_paciente.numero_seguro != None %}
+                <td>
+                    <strong>No. Afiliación:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.numero_seguro }}
+                </td>
+                </tr>
+            {% else %}
+                </table>
+                {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO" or interpretacion.id_paciente.hospital == "ECO" %}
+                    <div style="margin-left:30px; margin-top:90px">
+                {% else %}
+                    <hr>
+                    <div style="margin-left:30px;">
+                {% endif %}
+                <table class="container" id="exameneslaboratorio" width="100%" border="0">
+                <div style="margin-left:80px; margin-top:120px; width:80%">
+                <table class="table">
+                <tr>
+                    <td>
+                        <strong>Nombre:</strong>
+                    </td>
+                    <td>
+                        {{ interpretacion.id_paciente.nombre }} {{ interpretacion.id_paciente.apellido_paterno }} {{ interpretacion.id_paciente.apellido_materno }}
+                    </td>
+                    <td><strong for="nacimiento">Fecha De Nacimiento:</strong></td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>
+                    <strong>Fecha Elaboración Estudio:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.fecha_elaboracion_estudio }}
+                </td>
+
+                <td>
+                    <strong>Médico referencia:</strong>
+                </td>
+                <td>
+                    {{ interpretacion.id_paciente.medico_referencia }}
+                </td>
+            </tr>
+
+            </table>
+            </div>
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <span style="font-size: 15px">Estudio:<b>{{ interpretacion.nombre_estudio }}</b></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span style="font-size: 15px">Fecha de nacimiento: <b>{{ interpretacion.id_paciente.fecha_nacimiento }}</b></span></td>
+                </tr>
+            </table>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <span style="font-size: 15px">{{ interpretacion.interpretacion_creada|safe }} </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="font-size: 15px">Fecha Interpretación: {{ interpretacion.crated_at_date }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font size=4><b>Atentamente:</b></font>
+                            <br>
+                            <br>
+                                <span style="font-size: 15px"><strong>Dr(a). {{ medico.nombre }}</strong></span>
+                            <br>
+                            <font size=2>{{ medico.especialidad }}
+                                <br>
+                                DGP {{ medico.cedula }}</font>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            </table>
+            <br>
+        <p class="interpretaciones"></p>
+              <table class="container" id="exameneslaboratorio" width="100%">
+                {% if interpretacion.id_paciente.hospital == "IMSS" %}
+                    <td align="right"><img src="/var/www/project/radiologia2020/static/img/new-imss.png" height="140px"></td>
+                    <td colspan="4" align="center">
+                        <span><b>INSTITUTO MEXICANO DEL SEGURO SOCIAL</b></span><br>
+                        <span>Hospital General Regional No.1 Tijuana B.C</span>
+                        <h4>DEPARTAMENTO DE RADIOLOGIA E IMAGEN</h4>
+                    </td>
+                {% endif %}
+            </table>
+            {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO" or interpretacion.id_paciente.hospital == "ECO" %}
+                <br><br><br>
+                <div style="margin-left:30px; margin-top:90px">
+                </div>
+            {% else %}
+                <div style="margin-left:30px;">
+                </div>
+            {% endif %}
+            <br>
+            <br>
+            <table>
+                {% for m in interpretacion.archivos.all %}
+                    <td>
+                        <td><img style="margin-left: 50px; width: 400px; height: 350px" src="/var/www/project/radiologia2020/{{ m.archivo.url }}"></td>
+                    </td>
+                    {% if not forloop.counter|mod:2 %}
+                        </tr>
+                        <tr>
+                    {% endif %}
+                    {% if not forloop.counter|mod:6 %}
+                    </table>
+                        <br>
+                   <p class="interpretaciones"></p>
+                    <table class="container" id="exameneslaboratorio" width="100%">
+                        {% if interpretacion.id_paciente.hospital == "IMSS" %}
+                            <td align="right"><img src="/var/www/project/radiologia2020/static/img/new-imss.png" height="140px"></td>
+                            <td colspan="4" align="center">
+                                <span><b>INSTITUTO MEXICANO DEL SEGURO SOCIAL</b></span><br>
+                                <span>Hospital General Regional No.1 Tijuana B.C</span>
+                                <h4>DEPARTAMENTO DE RADIOLOGIA E IMAGEN</h4>
+                            </td>
+                        {% endif %}
+                    </table>
+                    {% if interpretacion.id_paciente.hospital == "PRADO" or interpretacion.id_paciente.hospital == "CENTRO" or interpretacion.id_paciente.hospital == "ECO" %}
+                        <br><br><br>
+                        <div style="margin-left:30px; margin-top:90px">
+                        </div>
+                    {% else %}
+                        <div style="margin-left:30px;">
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tr>
+</body>
+</html>
